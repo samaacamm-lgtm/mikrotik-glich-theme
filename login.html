@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet hotspot - Log in</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="scanlines"></div>
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="$(link-status)" />
+        <input type="hidden" name="popup" value="false" />
+    </form>
+
+    <script src="md5.js"></script>
+    <script>
+        function doLogin() {
+            document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+            if (window.triggerPageTransition) {
+                window.triggerPageTransition(function () {
+                    document.sendin.submit();
+                });
+                return false;
+            }
+            document.sendin.submit();
+            return false;
+        }
+    </script>
+    $(endif)
+
+    <div class="ie-fixMinHeight">
+        <div class="main">
+
+            <!-- Card Menu Login Standar (PC 2-Kolom / Mobile 1-Kolom) -->
+            <div class="wrap animated fadeIn login-wrap" id="login-form-card">
+                <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                    <input type="hidden" name="dst" value="$(link-status)" />
+                    <input type="hidden" name="popup" value="false" />
+
+                    <div class="login-split-grid">
+                        <!-- Sisi Kiri: Branding & Status Gateway (PC) -->
+                        <div class="login-brand-col">
+                            <div class="logo-container" id="brand-logo-trigger" title="Triple-click to test Virus Attack Encounter">
+                                <svg class="logo" width="190" height="46" viewBox="0 0 174 42" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#ff1744" d="M7.32 13.66L0 41.74 3.12 41.74 9.49 15.94 9.58 15.94 15.01 41.74 18.22 41.74 36.86 16.34 36.95 16.34 30.02 41.74 33.18 41.74 40.4 13.66 35.73 13.66 17.23 38.87 11.99 13.66 7.32 13.66zM43.43 21.45L38.19 41.74 41.16 41.74 46.4 21.45 43.43 21.45zM50.68 21.45L45.5 41.74 48.47 41.74 50.36 34.39 55.55 30.77 62.02 41.74 65.27 41.74 57.91 29.28 69.43 21.45 65.46 21.45 51.21 31.36 51.12 31.28 53.66 21.45 50.68 21.45z" />
+                                    <path d="M71.18 21.45L65.94 41.74h3l2.74-10.62c1-3.81 3.82-7.39 9.16-7.47.56 0 1.13 0 1.7 0l.66-2.48c-.52 0-1.09 0-1.61 0-4.34 0-6.94 2-8.82 5h-.1l1.23-4.68zM103.8 28.8c0-5-4-7.94-9.63-7.94-8.69 0-13.59 6.37-13.59 13 0 5.07 3.44 8.45 9.72 8.45 9 0 13.5-6.68 13.5-13.53m-3 .52c0 4.72-3.44 10.93-9.95 10.93-5 0-7.32-2.68-7.32-6.61 0-4.76 3.59-10.7 10.1-10.7 4.77 0 7.17 2.6 7.17 6.38M132.33 21.43L134.26 13.66 105.19 13.66 103.27 21.45 112.59 21.45 112.59 21.45 122.99 21.45 122.99 21.45 132.33 21.43zM111.67 25.17L107.55 41.74 117.93 41.74 122.06 25.17 122.06 25.16 111.67 25.16 111.67 25.17zM134 25.17l-4.11 16.57h9.35l4.1-16.57zm10.28-3.73l1.94-7.78h-9.34l-2 7.79zM150.09 13.66L143.11 41.74 152.45 41.74 153.91 35.92 156.04 34.34 159.34 41.74 169.49 41.74 163.26 29.55 174.26 21.33 163.07 21.33 156.18 27.3 156.09 27.3 159.44 13.66 150.09 13.66zM47.45 0c1.14 7.93 5.39 12.74 14.07 13.14A10.69 10.69 0 0 1 47.45 0" fill="#ff1744" fill-rule="evenodd" />
+                                    <path d="M42.91,1.4c.1,0,.11,0,.12.11A16.55,16.55,0,0,0,48.26,13a16.6,16.6,0,0,0,12,4.66c-10,4-20.55-5.6-17.33-16.28" fill="#ff1744" fill-rule="evenodd" />
+                                </svg>
+                            </div>
+
+                            <h1 class="glitch-hover" id="brand-title-trigger" style="cursor: pointer;" title="Triple-click to test Virus Attack Encounter">HOTSPOT ACCESS</h1>
+
+                            <div class="brand-status-badge">
+                                <span class="status-badge">
+                                    <span class="pulse-dot"></span> GATEWAY ONLINE
+                                </span>
+                            </div>
+
+                            <p class="brand-desc">High-speed internet hotspot gateway. Authenticate your credentials to establish secure connection.</p>
+
+                            <p class="info bt glitch-hover brand-footer">HOTSPOT GATEWAY &bull; MIKROTIK ROUTEROS</p>
+                        </div>
+
+                        <!-- Sisi Kanan: Form Input & Opsi Login (PC) -->
+                        <div class="login-form-col">
+                            <div class="login-form-header">
+                                <span class="login-form-title">USER AUTHENTICATION</span>
+                            </div>
+
+                            <p class="info $(if error)alert$(endif)">
+                                $(if error == "")Please authenticate to access high-speed internet hotspot$(endif)
+                                $(if error)$(error)$(endif)
+                            </p>
+
+                            <label>
+                                <img class="ico" src="img/user.svg" alt="User" />
+                                <input name="username" type="text" value="$(username)" placeholder="Username" autocomplete="off" autocorrect="off" autocapitalize="off" />
+                            </label>
+
+                            <label>
+                                <img class="ico" src="img/password.svg" alt="Password" />
+                                <input name="password" type="password" placeholder="Password" />
+                            </label>
+
+                            <input type="submit" value="CONNECT NOW" />
+
+                            $(if trial == 'yes')
+                            <p class="info" style="margin-top: 14px; text-align: center;">
+                                Free trial available, <a class="cyber-link" href="$(link-login-only)?dst=$(link-status)&amp;username=T-$(mac-esc)">click here</a>.
+                            </p>
+                            $(endif)
+
+                            <p class="info bt glitch-hover mobile-only-footer">HOTSPOT GATEWAY &bull; MIKROTIK ROUTEROS</p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Virus Attack Warning Card (100% IDENTIK dengan alogin.html!) -->
+            <div class="wrap animated fadeIn alogin-wrap virus-alert-card" id="virus-attack-box" style="text-align: center; display: none;">
+                <div class="virus-badge">
+                    <span class="virus-pulse"></span> <span id="v-badge-text">CRITICAL THREAT DETECTED</span>
+                </div>
+
+                <h1 class="virus-title" id="v-title">WARNING: VIRUS ATTACKING</h1>
+
+                <div class="virus-hud-box">
+                    <div class="virus-code-stream">
+                        <span class="virus-line threat">[!] MALICIOUS PAYLOAD INJECTED // PORT 2777</span>
+                        <span class="virus-line" id="v-line-2">[!] INTRUSION DETECTED: CORRUPTING DATA BUFFER...</span>
+                        <span class="virus-line" id="v-line-3">[*] DEPLOYING COUNTER-VIRUS FIREWALL...</span>
+                    </div>
+                    <div class="virus-progress-bar">
+                        <div class="virus-progress-fill" id="virus-progress"></div>
+                    </div>
+                </div>
+
+                <p class="info virus-alert-text" id="virus-alert-msg">
+                    SECURITY BREACH IN PROGRESS &mdash; PURGING HOSTILE PROCESSES...
+                </p>
+
+                <p class="info bt glitch-hover">EMERGENCY DEFENSE &bull; MIKROTIK ROUTEROS</p>
+            </div>
+
+        </div>
+    </div>
+    <script src="glitch.js"></script>
+    <script src="game.js"></script>
+    <script>
+        function restoreLoginMenu() {
+            var formCard = document.getElementById('login-form-card');
+            var virusBox = document.getElementById('virus-attack-box');
+            if (formCard && virusBox) {
+                // Reset state
+                virusBox.classList.remove('threat-neutralized');
+                document.body.classList.remove('virus-attacking-active');
+                if (window.setVirusMode) window.setVirusMode(false);
+
+                var fill = document.getElementById('virus-progress');
+                if (fill) { fill.style.width = '0%'; fill.style.background = ''; }
+                var line2 = document.getElementById('v-line-2');
+                if (line2) { line2.textContent = '[!] INTRUSION DETECTED: CORRUPTING DATA BUFFER...'; line2.className = 'virus-line'; }
+                var line3 = document.getElementById('v-line-3');
+                if (line3) { line3.textContent = '[*] DEPLOYING COUNTER-VIRUS FIREWALL...'; line3.className = 'virus-line'; }
+                var badgeText = document.getElementById('v-badge-text');
+                if (badgeText) badgeText.textContent = 'CRITICAL THREAT DETECTED';
+                var title = document.getElementById('v-title');
+                if (title) title.textContent = 'WARNING: VIRUS ATTACKING';
+                var alertMsg = document.getElementById('virus-alert-msg');
+                if (alertMsg) alertMsg.innerHTML = 'SECURITY BREACH IN PROGRESS &mdash; PURGING HOSTILE PROCESSES...';
+
+                // Return to login menu smoothly
+                virusBox.style.display = 'none';
+                formCard.style.display = '';
+                formCard.classList.remove('fadeIn');
+                void formCard.offsetWidth; // trigger reflow
+                formCard.classList.add('fadeIn');
+            }
+        }
+
+        // Easter Egg: 3x klik logo MikroTik ATAU judul HOTSPOT ACCESS langsung memicu Virus Attack Encounter!
+        (function() {
+            var clicks = 0, timer;
+            function triggerVirus() {
+                var formCard = document.getElementById('login-form-card');
+                var virusBox = document.getElementById('virus-attack-box');
+                if (formCard && virusBox) {
+                    formCard.style.display = 'none';
+                    virusBox.style.display = '';
+
+                    var elements = {
+                        card: virusBox,
+                        fill: document.getElementById('virus-progress'),
+                        line2: document.getElementById('v-line-2'),
+                        line3: document.getElementById('v-line-3'),
+                        badgeText: document.getElementById('v-badge-text'),
+                        title: document.getElementById('v-title'),
+                        alertMsg: document.getElementById('virus-alert-msg')
+                    };
+
+                    if (window.runVirusSequence) {
+                        window.runVirusSequence(elements, function() {
+                            // Setelah selesai ~3.8 detik: KEMBALI KE MENU LOGIN!
+                            restoreLoginMenu();
+                        });
+                    }
+                }
+            }
+
+            function handleTriggerClick(e) {
+                // Pastikan Web Audio API langsung di-unlock oleh klik user
+                if (window.getOrInitAudio) window.getOrInitAudio();
+
+                clicks++;
+                clearTimeout(timer);
+                if (clicks >= 3) {
+                    clicks = 0;
+                    triggerVirus();
+                    return;
+                }
+                timer = setTimeout(function() { clicks = 0; }, 1200);
+            }
+
+            var logo = document.getElementById('brand-logo-trigger') || document.querySelector('.logo-container');
+            var title = document.getElementById('brand-title-trigger');
+            if (logo) logo.addEventListener('click', handleTriggerClick);
+            if (title) title.addEventListener('click', handleTriggerClick);
+        })();
+    </script>
+</body>
+
+</html>

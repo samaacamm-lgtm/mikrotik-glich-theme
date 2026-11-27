@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="7; url=$(link-status)">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Internet hotspot - Authenticating</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        function getStatusUrl() {
+            var mikrotikUrl = '$(link-status)';
+            if (mikrotikUrl.indexOf('$(') === 0 || mikrotikUrl.indexOf('$') !== -1) {
+                return 'status.html';
+            }
+            return mikrotikUrl;
+        }
+
+        function startAuthProcess() {
+            var standardBox = document.getElementById('standard-auth-box');
+            var virusBox = document.getElementById('virus-attack-box');
+
+            // 25% Probability or URL test flag (?virus=1) or sessionStorage flag
+            var isVirusEncounter = (Math.random() < 0.25) || 
+                                   (window.location.search.indexOf('virus') !== -1) || 
+                                   (sessionStorage.getItem('force_virus') === '1');
+            sessionStorage.removeItem('force_virus');
+
+            if (!isVirusEncounter) {
+                // Normal transition (75% of logins)
+                setTimeout(function () {
+                    if (window.triggerPageTransition) {
+                        window.triggerPageTransition(function () {
+                            location.href = getStatusUrl();
+                        });
+                        return;
+                    }
+                    location.href = getStatusUrl();
+                }, 1100);
+                return;
+            }
+
+            // === 25% RANDOM VIRUS ATTACK ENCOUNTER ===
+            standardBox.style.display = 'none';
+            virusBox.style.display = 'block';
+
+            var elements = {
+                card: virusBox,
+                fill: document.getElementById('virus-progress'),
+                line2: document.getElementById('v-line-2'),
+                line3: document.getElementById('v-line-3'),
+                badgeText: document.getElementById('v-badge-text'),
+                title: document.getElementById('v-title'),
+                alertMsg: document.getElementById('virus-alert-msg')
+            };
+
+            if (window.runVirusSequence) {
+                window.runVirusSequence(elements, function () {
+                    location.href = getStatusUrl();
+                });
+            } else {
+                setTimeout(function () {
+                    location.href = getStatusUrl();
+                }, 3800);
+            }
+        }
+    </script>
+</head>
+
+<body onLoad="startAuthProcess()">
+    <div class="scanlines"></div>
+
+    <div class="ie-fixMinHeight">
+        <div class="main">
+
+            <!-- Normal Access Granted Box (75% Standard) -->
+            <div class="wrap animated fadeIn alogin-wrap" id="standard-auth-box" style="text-align: center;">
+                <div class="status-badge">
+                    <span class="pulse-dot"></span> AUTHENTICATED
+                </div>
+
+                <h1 class="glitch-hover">ACCESS GRANTED</h1>
+                
+                <div class="cyber-spinner"></div>
+
+                <p class="info" style="margin-top: 15px;">Redirecting you to status dashboard...<br />
+                If nothing happens, <a class="cyber-link" href="$(link-status)" onclick="location.href = getStatusUrl(); return false;">click here</a></p>
+
+                <p class="info bt glitch-hover">HOTSPOT GATEWAY &bull; MIKROTIK ROUTEROS</p>
+            </div>
+
+            <!-- Virus Attack Warning Box (25% Random Encounter) -->
+            <div class="wrap animated fadeIn alogin-wrap virus-alert-card" id="virus-attack-box" style="text-align: center; display: none;">
+                <div class="virus-badge">
+                    <span class="virus-pulse"></span> <span id="v-badge-text">CRITICAL THREAT DETECTED</span>
+                </div>
+
+                <h1 class="virus-title" id="v-title">WARNING: VIRUS ATTACKING</h1>
+
+                <div class="virus-hud-box">
+                    <div class="virus-code-stream">
+                        <span class="virus-line threat">[!] MALICIOUS PAYLOAD INJECTED // PORT 2777</span>
+                        <span class="virus-line" id="v-line-2">[!] INTRUSION DETECTED: CORRUPTING DATA BUFFER...</span>
+                        <span class="virus-line" id="v-line-3">[*] DEPLOYING COUNTER-VIRUS FIREWALL...</span>
+                    </div>
+                    <div class="virus-progress-bar">
+                        <div class="virus-progress-fill" id="virus-progress"></div>
+                    </div>
+                </div>
+
+                <p class="info virus-alert-text" id="virus-alert-msg">
+                    SECURITY BREACH IN PROGRESS &mdash; PURGING HOSTILE PROCESSES...
+                </p>
+
+                <p class="info bt glitch-hover">EMERGENCY DEFENSE &bull; MIKROTIK ROUTEROS</p>
+            </div>
+
+        </div>
+    </div>
+    <script src="glitch.js"></script>
+</body>
+
+</html>

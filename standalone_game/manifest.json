@@ -1,0 +1,17 @@
+﻿{
+  "name": "MISSION 2777 - Red Glitch Air Combat",
+  "short_name": "MISSION 2777",
+  "start_url": "index.html",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#050204",
+  "theme_color": "#ff1744",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

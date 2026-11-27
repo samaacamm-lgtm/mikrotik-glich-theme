@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <title>Internet hotspot - Status</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+    $(if advert-pending == 'yes')
+        var popup = '';
+        function focusAdvert() {
+            if (window.focus) popup.focus();
+        }
+        function openAdvert() {
+            popup = open('$(link-advert)', 'hotspot_advert', '');
+            setTimeout("focusAdvert()", 1000);
+        }
+    $(endif)
+        function getLogoutUrl() {
+            var mikrotikUrl = '$(link-logout)';
+            if (!mikrotikUrl || mikrotikUrl.indexOf('$(') === 0 || mikrotikUrl.indexOf('$') !== -1) {
+                return 'logout.html';
+            }
+            return mikrotikUrl;
+        }
+
+        function openLogout() {
+            var dest = getLogoutUrl();
+            if (window.triggerPageTransition) {
+                window.triggerPageTransition(function () {
+                    if (dest === 'logout.html') {
+                        window.location.href = dest;
+                        return;
+                    }
+                    document.logout.submit();
+                });
+                return false;
+            }
+            if (dest === 'logout.html') {
+                window.location.href = dest;
+                return false;
+            }
+            document.logout.submit();
+            return false;
+        }
+    </script>
+</head>
+
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+    <div class="scanlines"></div>
+
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap animated fadeIn status-wrap">
+                
+                <div class="status-top-bar">
+                    <div class="status-heading-group">
+                        $(if login-by == 'trial')
+                            <h1 class="glitch-hover status-title">WELCOME, TRIAL USER</h1>
+                        $(elif login-by != 'mac')
+                            <h1 class="glitch-hover status-title">WELCOME, $(username)</h1>
+                        $(else)
+                            <h1 class="glitch-hover status-title">DEVICE CONNECTED</h1>
+                        $(endif)
+                        <div class="status-sub">Active Hotspot Session Secured</div>
+                    </div>
+
+                    
+                    <div class="status-badge-wrap">
+                        <div class="status-badge">
+                            <span class="pulse-dot"></span> CONNECTED &bull; ONLINE
+                        </div>
+                    </div>
+                </div>
+
+                <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                    <table class="hud-table">
+                        <tr>
+                            <td><span class="hud-label">IP Address</span></td>
+                            <td><span class="hud-value">$(ip)</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="hud-label">Bytes Up / Down</span></td>
+                            <td><span class="hud-value">$(bytes-in-nice) / $(bytes-out-nice)</span></td>
+                        </tr>
+                    $(if session-time-left)
+                        <tr>
+                            <td><span class="hud-label">Connected / Left</span></td>
+                            <td><span class="hud-value">$(uptime) / $(session-time-left)</span></td>
+                        </tr>
+                    $(else)
+                        <tr>
+                            <td><span class="hud-label">Connected Time</span></td>
+                            <td><span class="hud-value">$(uptime)</span></td>
+                        </tr>
+                    $(endif)
+                    $(if blocked == 'yes')
+                        <tr>
+                            <td><span class="hud-label">Status</span></td>
+                            <td><a class="cyber-link" href="$(link-advert)" target="hotspot_advert">Ad Required</a></td>
+                        </tr>
+                    $(elif refresh-timeout)
+                        <tr>
+                            <td><span class="hud-label">Status Refresh</span></td>
+                            <td><span class="hud-value">$(refresh-timeout)</span></td>
+                        </tr>
+                    $(endif)
+                    </table>
+
+                    <div class="status-actions">
+                        $(if login-by-mac != 'yes')
+                        <input type="submit" value="DISCONNECT / LOG OUT" class="status-disconnect-btn" />
+                        $(endif)
+                    </div>
+                </form>
+
+                <p class="info bt glitch-hover">SESSION SECURED &bull; MIKROTIK ROUTEROS</p>
+            </div>
+        </div>
+    </div>
+    <script src="glitch.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
